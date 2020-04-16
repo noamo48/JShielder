@@ -531,43 +531,43 @@ spinner
 sleep 2
 
 
-chown root:root /etc/passwd
-chmod 644 /etc/passwd
+#chown root:root /etc/passwd
+#chmod 644 /etc/passwd
 
 #6.1.3 Ensure permissions on /etc/shadow are configured (Scored)
 
-chown root:shadow /etc/shadow
-chmod o-rwx,g-wx /etc/shadow
+#chown root:shadow /etc/shadow
+#chmod o-rwx,g-wx /etc/shadow
 
 #6.1.4 Ensure permissions on /etc/group are configured (Scored)
 
-chown root:root /etc/group
-chmod 644 /etc/group
+#chown root:root /etc/group
+#chmod 644 /etc/group
 
 #6.1.5 Ensure permissions on /etc/gshadow are configured (Scored)
 
-chown root:shadow /etc/gshadow
-chmod o-rwx,g-rw /etc/gshadow
+#chown root:shadow /etc/gshadow
+#chmod o-rwx,g-rw /etc/gshadow
 
 #6.1.6 Ensure permissions on /etc/passwd - are configured (Scored)
 
-chown root:root /etc/passwd-
-chmod 600 /etc/passwd-
+#chown root:root /etc/passwd-
+#chmod 600 /etc/passwd-
 
 #6.1.7 Ensure permissions on /etc/shadow - are configured (Scored)
 
-chown root:root /etc/shadow-
-chmod 600 /etc/shadow-
+#chown root:root /etc/shadow-
+#chmod 600 /etc/shadow-
 
 #6.1.8 Ensure permissions on /etc/group - are configured (Scored)
 
-chown root:root /etc/group-
-chmod 600 /etc/group-
+#chown root:root /etc/group-
+#chmod 600 /etc/group-
 
 #6.1.9 Ensure permissions on /etc/gshadow - are configured (Scored)
 
-chown root:root /etc/gshadow-
-chmod 600 /etc/gshadow-
+#chown root:root /etc/gshadow-
+#chmod 600 /etc/gshadow-
 
 #6.1.10 Ensure no world writable files exist (Scored)
 #6.1.11 Ensure no unowned files or directories exist (Scored)
