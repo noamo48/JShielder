@@ -110,7 +110,7 @@ echo -e "Setting Sticky bit on all world-writable directories"
 sleep 2
 spinner
 
-#df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type d -perm -0002 2>/dev/null | xargs chmod a+t
+df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type d -perm -0002 2>/dev/null | xargs chmod a+t
 
 #1.1.21 Disable Automounting (Scored)
 
@@ -131,8 +131,8 @@ f_banner
 echo -e ""
 echo -e "Installing and configuring AIDE"
 
-#apt-get install aide
-#aideinit
+apt-get install aide
+aideinit
 
 #1.4.3 Ensure authentication required for single user mode (Scored)
 
@@ -337,10 +337,10 @@ echo -e "Setting up Iptables Rules"
 spinner
 sleep 1
 
-#sh templates/iptables-CIS.sh
-#cp templates/iptables-CIS.sh /etc/init.d/
-#chmod +x /etc/init.d/iptables-CIS.sh
-#ln -s /etc/init.d/iptables-CIS.sh /etc/rc2.d/S99iptables-CIS.sh
+sh templates/iptables-CIS.sh
+cp templates/iptables-CIS.sh /etc/init.d/
+chmod +x /etc/init.d/iptables-CIS.sh
+ln -s /etc/init.d/iptables-CIS.sh /etc/rc2.d/S99iptables-CIS.sh
 
 #3.6.5 Ensure firewall rules exist for all open ports (Scored)
 #3.7 Ensure wireless interfaces are disabled (Not Scored)
@@ -461,12 +461,12 @@ chown root:root /etc/cron.allow /etc/at.allow
 #5.2.14 Ensure SSH access is limited (Scored)
 #5.2.15 Ensure SSH warning banner is configured (Scored)
 
-#echo -n " Securing SSH..."
-#sed s/USERNAME/ubuntu/g templates/sshd_config-CIS > /etc/ssh/sshd_config; echo "OK"
-#service ssh restart
+echo -n " Securing SSH..."
+sed s/USERNAME/ubuntu/g templates/sshd_config-CIS > /etc/ssh/sshd_config; echo "OK"
+service ssh restart
 
-#chown root:root /etc/ssh/sshd_config
-#chmod og-rwx /etc/ssh/sshd_config
+chown root:root /etc/ssh/sshd_config
+chmod og-rwx /etc/ssh/sshd_config
 
 #5.3 Configure PAM
 #5.3.1 Ensure password creation requirements are configured (Scored)
@@ -531,43 +531,43 @@ spinner
 sleep 2
 
 
-#chown root:root /etc/passwd
-#chmod 644 /etc/passwd
+chown root:root /etc/passwd
+chmod 644 /etc/passwd
 
 #6.1.3 Ensure permissions on /etc/shadow are configured (Scored)
 
-#chown root:shadow /etc/shadow
-#chmod o-rwx,g-wx /etc/shadow
+chown root:shadow /etc/shadow
+chmod o-rwx,g-wx /etc/shadow
 
 #6.1.4 Ensure permissions on /etc/group are configured (Scored)
 
-#chown root:root /etc/group
-#chmod 644 /etc/group
+chown root:root /etc/group
+chmod 644 /etc/group
 
 #6.1.5 Ensure permissions on /etc/gshadow are configured (Scored)
 
-#chown root:shadow /etc/gshadow
-#chmod o-rwx,g-rw /etc/gshadow
+chown root:shadow /etc/gshadow
+chmod o-rwx,g-rw /etc/gshadow
 
 #6.1.6 Ensure permissions on /etc/passwd - are configured (Scored)
 
-#chown root:root /etc/passwd-
-#chmod 600 /etc/passwd-
+chown root:root /etc/passwd-
+chmod 600 /etc/passwd-
 
 #6.1.7 Ensure permissions on /etc/shadow - are configured (Scored)
 
-#chown root:root /etc/shadow-
-#chmod 600 /etc/shadow-
+chown root:root /etc/shadow-
+chmod 600 /etc/shadow-
 
 #6.1.8 Ensure permissions on /etc/group - are configured (Scored)
 
-#chown root:root /etc/group-
-#chmod 600 /etc/group-
+chown root:root /etc/group-
+chmod 600 /etc/group-
 
 #6.1.9 Ensure permissions on /etc/gshadow - are configured (Scored)
 
-#chown root:root /etc/gshadow-
-#chmod 600 /etc/gshadow-
+chown root:root /etc/gshadow-
+chmod 600 /etc/gshadow-
 
 #6.1.10 Ensure no world writable files exist (Scored)
 #6.1.11 Ensure no unowned files or directories exist (Scored)
