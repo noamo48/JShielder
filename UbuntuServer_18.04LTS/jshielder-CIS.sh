@@ -461,12 +461,12 @@ chown root:root /etc/cron.allow /etc/at.allow
 #5.2.14 Ensure SSH access is limited (Scored)
 #5.2.15 Ensure SSH warning banner is configured (Scored)
 
-echo -n " Securing SSH..."
-sed s/USERNAME/ubuntu/g templates/sshd_config-CIS > /etc/ssh/sshd_config; echo "OK"
-service ssh restart
+#echo -n " Securing SSH..."
+#sed s/USERNAME/ubuntu/g templates/sshd_config-CIS > /etc/ssh/sshd_config; echo "OK"
+#service ssh restart
 
-chown root:root /etc/ssh/sshd_config
-chmod og-rwx /etc/ssh/sshd_config
+#chown root:root /etc/ssh/sshd_config
+#chmod og-rwx /etc/ssh/sshd_config
 
 #5.3 Configure PAM
 #5.3.1 Ensure password creation requirements are configured (Scored)
