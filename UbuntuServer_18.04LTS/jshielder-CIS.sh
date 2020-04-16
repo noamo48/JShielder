@@ -337,10 +337,10 @@ echo -e "Setting up Iptables Rules"
 spinner
 sleep 1
 
-sh templates/iptables-CIS.sh
-cp templates/iptables-CIS.sh /etc/init.d/
-chmod +x /etc/init.d/iptables-CIS.sh
-ln -s /etc/init.d/iptables-CIS.sh /etc/rc2.d/S99iptables-CIS.sh
+#sh templates/iptables-CIS.sh
+#cp templates/iptables-CIS.sh /etc/init.d/
+#chmod +x /etc/init.d/iptables-CIS.sh
+#ln -s /etc/init.d/iptables-CIS.sh /etc/rc2.d/S99iptables-CIS.sh
 
 #3.6.5 Ensure firewall rules exist for all open ports (Scored)
 #3.7 Ensure wireless interfaces are disabled (Not Scored)
