@@ -461,17 +461,8 @@ chown root:root /etc/cron.allow /etc/at.allow
 #5.2.14 Ensure SSH access is limited (Scored)
 #5.2.15 Ensure SSH warning banner is configured (Scored)
 
-##Create user for SSH Access
-
-echo -e "\e[34m---------------------------------------------------------------------------------------------------------\e[00m"
-echo -e "\e[93m[+]\e[00m We will now Create a New User for SSH Access"
-echo -e "\e[34m---------------------------------------------------------------------------------------------------------\e[00m"
-echo ""
-echo -n " Type the new username: "; read username
-adduser $username
-
 echo -n " Securing SSH..."
-sed s/USERNAME/$username/g templates/sshd_config-CIS > /etc/ssh/sshd_config; echo "OK"
+sed s/USERNAME/ubuntu/g templates/sshd_config-CIS > /etc/ssh/sshd_config; echo "OK"
 service ssh restart
 
 chown root:root /etc/ssh/sshd_config
