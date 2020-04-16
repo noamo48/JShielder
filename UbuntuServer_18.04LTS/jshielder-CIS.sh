@@ -134,37 +134,6 @@ echo -e "Installing and configuring AIDE"
 apt-get install aide
 aideinit
 
-#1.3.2 Ensure filesystem integrity is regularly checked (Scored)
-
-
-#1.4 Secure Boot Settings
-#1.4.1 Ensure permissions on bootloader config are configured (Scored)
-
-clear
-f_banner
-
-echo -e ""
-echo -e "Securing Boot Settings"
-spinner
-sleep 2
-
-chown root:root /boot/grub/grub.cfg
-chmod og-rwx /boot/grub/grub.cfg
-
-#1.4.2 Ensure bootloader password is set (Scored)
-
-echo -e "\e[34m---------------------------------------------------------------------------------------------------------\e[00m"
-echo -e "\e[93m[+]\e[00m We will now Set a Bootloader Password"
-echo -e "\e[34m---------------------------------------------------------------------------------------------------------\e[00m"
-echo ""
-
-grub-mkpasswd-pbkdf2 | tee grubpassword.tmp
-grubpassword=$(cat grubpassword.tmp | sed -e '1,2d' | cut -d ' ' -f7)
-echo " set superusers="root" " >> /etc/grub.d/40_custom
-echo " password_pbkdf2 root $grubpassword " >> /etc/grub.d/40_custom
-rm grubpassword.tmp
-update-grub
-
 #1.4.3 Ensure authentication required for single user mode (Scored)
 
 
@@ -312,6 +281,8 @@ sleep 2
 echo "ALL: 10.0.0.0/255.0.0.0" >> /etc/hosts.allow
 echo "ALL: 192.168.0.0/255.255.0.0" >> /etc/hosts.allow
 echo "ALL: 172.16.0.0/255.240.0.0" >> /etc/hosts.allow
+echo "ALL: 170.55.45.42/255.255.255.255" >> /etc/hosts.allow
+echo "ALL: 24.51.206.190/255.255.255.255" >> /etc/hosts.allow
 
 #3.4.3 Ensure /etc/hosts.deny is configured (Scored)
 
