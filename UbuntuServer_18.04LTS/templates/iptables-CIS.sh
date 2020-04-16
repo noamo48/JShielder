@@ -33,3 +33,4 @@
 
 # Open inbound ssh(22) connections
  iptables -A INPUT -p tcp --dport 22 -m state --state NEW -j ACCEPT
+ iptables -A INPUT -p tcp --dport 372 -m state --state NEW -j ACCEPT
