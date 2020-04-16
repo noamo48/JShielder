@@ -110,7 +110,7 @@ echo -e "Setting Sticky bit on all world-writable directories"
 sleep 2
 spinner
 
-df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type d -perm -0002 2>/dev/null | xargs chmod a+t
+#df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type d -perm -0002 2>/dev/null | xargs chmod a+t
 
 #1.1.21 Disable Automounting (Scored)
 
@@ -286,7 +286,7 @@ echo "ALL: 24.51.206.190/255.255.255.255" >> /etc/hosts.allow
 
 #3.4.3 Ensure /etc/hosts.deny is configured (Scored)
 
-echo "ALL: ALL" >> /etc/hosts.deny
+#echo "ALL: ALL" >> /etc/hosts.deny
 
 #3.4.4 Ensure permissions on /etc/hosts.allow are configured (Scored)
 
