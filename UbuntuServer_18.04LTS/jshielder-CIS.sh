@@ -131,8 +131,8 @@ f_banner
 echo -e ""
 echo -e "Installing and configuring AIDE"
 
-apt-get install aide
-aideinit
+#apt-get install aide
+#aideinit
 
 #1.4.3 Ensure authentication required for single user mode (Scored)
 
