@@ -131,7 +131,7 @@ f_banner
 echo -e ""
 echo -e "Installing and configuring AIDE"
 
-DEBIAN_FRONTEND=noninteractive apt-get -y install aide
+DEBIAN_FRONTEND=noninteractive apt-get -yq install aide
 aideinit
 
 #1.4.3 Ensure authentication required for single user mode (Scored)
