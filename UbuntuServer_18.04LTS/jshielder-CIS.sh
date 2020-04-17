@@ -131,7 +131,7 @@ f_banner
 echo -e ""
 echo -e "Installing and configuring AIDE"
 
-apt-get install aide
+apt-get -y install aide
 aideinit
 
 #1.4.3 Ensure authentication required for single user mode (Scored)
@@ -179,7 +179,7 @@ chmod 644 /etc/motd /etc/issue /etc/issue.net
 #1.7.2 Ensure GDM login banner is configured (Scored)
 #1.8 Ensure updates, patches, and additional security software are installed (Not Scored)
 
-apt-get update
+apt-get -y update
 apt-get -y upgrade
 
 ############################################################
@@ -231,7 +231,7 @@ apt-get -y upgrade
 #2.3.3 Ensure talk client is not installed (Scored)
 #2.3.4 Ensure telnet client is not installed (Scored)
 
-apt-get remove telnet
+apt-get -y remove telnet
 
 #2.3.5 Ensure LDAP client is not installed (Scored)
 
@@ -356,7 +356,7 @@ echo -e "Installing and configuring Auditd"
 spinner
 sleep 1
 
-apt-get install auditd
+apt-get -y install auditd
 
 #.1.1.1 Ensure audit log storage size is configured (Not Scored)
 #.1.1.2 Ensure system is disabled when audit logs are full (Scored)
