@@ -25,11 +25,11 @@ function say_done() {
 
 # Ask to Continue
 function say_continue() {
-    echo -n " To EXIT Press x Key, Press ENTER to Continue"
-    read acc
-    if [ "$acc" == "x" ]; then
-        exit
-    fi
+    #echo -n " To EXIT Press x Key, Press ENTER to Continue"
+    #read acc
+    #if [ "$acc" == "x" ]; then
+    #    exit
+    #fi
     echo " "
 }
 
