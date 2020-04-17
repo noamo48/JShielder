@@ -131,6 +131,7 @@ f_banner
 echo -e ""
 echo -e "Installing and configuring AIDE"
 
+DEBIAN_FRONTEND=noninteractive apt-get -yq install nullmailer
 DEBIAN_FRONTEND=noninteractive apt-get -yq install aide
 aideinit
 
