@@ -122,9 +122,9 @@ df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -typ
 
 #1.2.2 Ensure GPG keys are configured (Not Scored)
 
-#1.3 Filesystem Integrity Checking
+#1.4 Filesystem Integrity Checking
 
-#1.3.1 Ensure AIDE is installed (Scored)
+#1.4.1 Ensure AIDE is installed (Scored)
 
 clear
 f_banner
@@ -135,50 +135,48 @@ DEBIAN_FRONTEND=noninteractive apt-get -yq install nullmailer
 DEBIAN_FRONTEND=noninteractive apt-get -yq install aide
 aideinit
 
+#1.4.2 Ensure filesystem integrity is regularly checked (Scored)
+
 #1.4.3 Ensure authentication required for single user mode (Scored)
 
+#1.6 Additional Process Hardening
+#1.6.1 Ensure XD/NX support is enabled (Scored)
+#1.6.2 Ensure address space layout randomization (ASLR) is enabled (Scored)
+    #already set on sysctl.conf template file
+    
+#1.6.3 Ensure prelink is disabled (Scored)
+    # not installed by default on Clean Ubuntu install, will add condition later on
 
-#1.5 Additional Process Hardening
-#1.5.1 Ensure core dumps are restricted (Scored)
+#1.6.4 Ensure core dumps are restricted (Scored)
 
 echo "* hard core 0" >> /etc/security/limits.conf
 cp templates/sysctl-CIS.conf /etc/sysctl.conf
 sysctl -e -p
 
-#1.5.2 Ensure XD/NX support is enabled (Not Scored)
-#1.5.3 Ensure address space layout randomization (ASLR) is enabled (Scored)
-    #already set on sysctl.conf template file
+#1.7 Mandatory Access Control
+#1.7.1.1 Ensure AppArmor is installed (Scored)
+#1.7.1.2 Ensure AppArmor is enabled in the bootloader configuration (Scored).
+#1.7.1.3 Ensure all AppArmor Profiles are in enforce or complain mode (Scored)
+#1.7.1.4 Ensure all AppArmor Profiles are enforcing (Scored)
 
 
-#1.5.4 Ensure prelink is disabled (Scored)
-    # not installed by default on Clean Ubuntu install, will add condition later on
-
-#1.6 Mandatory Access Control
-#1.6.1.1 Ensure SELinux is not disabled in bootloader configuration (Scored) N/A
-#1.6.1.2 Ensure the SELinux state is enforcing (Scored) N/A
-#1.6.1.3 Ensure SELinux policy is configured (Scored)  N/A
-#1.6.1.4 Ensure no unconfined daemons exist (Scored)  N/A
-#1.6.2.1 Ensure AppArmor is not disabled in bootloader configuration (Scored)
-#1.6.2.2 Ensure all AppArmor Profiles are enforcing (Scored)
-#1.6.3 Ensure SELinux or AppArmor are installed (Not Scored)
-
-#1.7 Warning Banners
-#1.7.1.1 Ensure message of the day is configured properly (Scored)
-#1.7.1.2 Ensure local login warning banner is configured properly (Not Scored)
-#1.7.1.3 Ensure remote login warning banner is configured properly (Not Scored)
+#1.8 Warning Banners
+#1.8.1.1 Ensure message of the day is configured properly (Scored)
+#1.8.1.2 Ensure local login warning banner is configured properly (Not Scored)
+#1.8.1.3 Ensure remote login warning banner is configured properly (Not Scored)
 cat templates/motd-CIS > /etc/motd
 cat templates/motd-CIS > /etc/issue
 cat templates/motd-CIS > /etc/issue.net
 
-#1.7.1.4 Ensure permissions on /etc/motd are configured (Not Scored)
-#1.7.1.5 Ensure permissions on /etc/issue are configured (Scored)
-#1.7.1.6 Ensure permissions on /etc/issue.net are configured (Not Scored)
+#1.8.1.4 Ensure permissions on /etc/motd are configured (Not Scored)
+#1.8.1.5 Ensure permissions on /etc/issue are configured (Scored)
+#1.8.1.6 Ensure permissions on /etc/issue.net are configured (Not Scored)
 
 chown root:root /etc/motd /etc/issue /etc/issue.net
 chmod 644 /etc/motd /etc/issue /etc/issue.net
 
-#1.7.2 Ensure GDM login banner is configured (Scored)
-#1.8 Ensure updates, patches, and additional security software are installed (Not Scored)
+#1.8.2 Ensure GDM login banner is configured (Scored)
+#1.9 Ensure updates, patches, and additional security software are installed (Not Scored)
 
 apt-get -y update
 apt-get -y upgrade
