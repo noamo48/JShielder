@@ -456,21 +456,24 @@ chown root:root /etc/cron.allow /etc/at.allow
 
 #Permissions set after template copy on Line 493
 
-#5.2.2 Ensure SSH Protocol is set to 2 (Scored)
-#5.2.3 Ensure SSH LogLevel is set to INFO (Scored)
-#5.2.4 Ensure SSH X11 forwarding is disabled (Scored)
-#5.2.5 Ensure SSH MaxAuthTries is set to 4 or less (Scored)
-#5.2.6 Ensure SSH IgnoreRhosts is enabled (Scored)
-#5.2.7 Ensure SSH HostbasedAuthentication is disabled (Scored)
-#5.2.8 Ensure SSH root login is disabled (Scored)
-#5.2.9 Ensure SSH PermitEmptyPasswords is disabled (Scored)
-#5.2.10 Ensure SSH PermitUserEnvironment is disabled (Scored)
-#5.2.11 Ensure only approved MAC algorithms are used (Scored)
-#5.2.12 Ensure SSH Idle Timeout Interval is configured (Scored)
-#5.2.13 Ensure SSH LoginGraceTime is set to one minute or less (Scored)
-#5.2.14 Ensure SSH access is limited (Scored)
-#5.2.15 Ensure SSH warning banner is configured (Scored)
-
+#5.2.2 Ensure permissions on SSH private host key files are configured (Scored)
+#5.2.3 Ensure permissions on SSH public host key files are configured (Scored) 
+#5.2.4 Ensure SSH Protocol is not set to 1 (Scored)
+#5.2.5 Ensure SSH LogLevel is appropriate (Scored)
+#5.2.6 Ensure SSH X11 forwarding is disabled (Scored)
+#5.2.7 Ensure SSH MaxAuthTries is set to 4 or less (Scored)
+#5.2.8 Ensure SSH IgnoreRhosts is enabled (Scored)
+#5.2.9 Ensure SSH HostbasedAuthentication is disabled (Scored)
+#5.2.10 Ensure SSH root login is disabled (Scored)
+#5.2.11 Ensure SSH PermitEmptyPasswords is disabled (Scored)
+#5.2.12 Ensure SSH PermitUserEnvironment is disabled (Scored)
+#5.2.13 Ensure only strong Ciphers are used (Scored)
+#5.2.14 Ensure only strong MAC algorithms are used (Scored)
+#5.2.15 Ensure only strong Key Exchange algorithms are used (Scored)
+#5.2.16 Ensure SSH Idle Timeout Interval is configured (Scored)
+#5.2.17 Ensure SSH LoginGraceTime is set to one minute or less (Scored)
+#5.2.18 Ensure SSH access is limited (Scored)
+#5.2.19 Ensure SSH warning banner is configured (Scored)
 echo -n " Securing SSH..."
 sed s/USERNAME/ubuntu/g templates/sshd_config-CIS > /etc/ssh/sshd_config; echo "OK"
 service ssh restart
@@ -478,9 +481,14 @@ service ssh restart
 chown root:root /etc/ssh/sshd_config
 chmod og-rwx /etc/ssh/sshd_config
 
+#5.2.20 Ensure SSH PAM is enabled (Scored)
+#5.2.21 Ensure SSH AllowTcpForwarding is disabled (Scored)
+#5.2.22 Ensure SSH MaxStartups is configured (Scored)
+#5.2.23 Ensure SSH MaxSessions is set to 4 or less (Scored)
+
 #5.3 Configure PAM
 #5.3.1 Ensure password creation requirements are configured (Scored)
-#5.3.2 Ensure lockout for failed password attempts is configured (Not Scored)
+#5.3.2 Ensure lockout for failed password attempts is configured (Scored)
 #5.3.3 Ensure password reuse is limited (Scored)
 #5.3.4 Ensure password hashing algorithm is SHA-512 (Scored)
 
@@ -497,8 +505,9 @@ cp templates/pwquality-CIS.conf /etc/security/pwquality.conf
 cp templates/common-auth-CIS /etc/pam.d/common-auth
 
 #5.4 User Accounts and Environment
-#5.4.1.1 Ensure password expiration is 90 days or less (Scored)
-#5.4.1.2 Ensure minimum days between password changes is 7 or more (Scored)
+#5.4.1 Set Shadow Password Suite Parameters
+#5.4.1.1 Ensure password expiration is 365 days or less (Scored)
+#5.4.1.2 Ensure minimum days between password changes is is configured (Scored)
 #5.4.1.3 Ensure password expiration warning days is 7 or more (Scored)
 
 cp templates/login.defs-CIS /etc/login.defs
@@ -507,7 +516,9 @@ cp templates/login.defs-CIS /etc/login.defs
 
 useradd -D -f 30
 
-#5.4.2 Ensure system accounts are non-login (Scored)
+#5.4.1.5 Ensure all users last password change date is in the past (Scored)
+
+#5.4.2 Ensure system accounts are secured (Scored)
 
 for user in `awk -F: '($3 < 1000) {print $1 }' /etc/passwd`; do
   if [ $user != "root" ]; then
@@ -525,6 +536,8 @@ usermod -g 0 root
 #5.4.4 Ensure default user umask is 027 or more restrictive (Scored)
 
 sed -i s/umask\ 022/umask\ 027/g /etc/init.d/rc
+
+#5.4.5 Ensure default user shell timeout is 900 seconds or less (Scored)
 
 #5.5 Ensure root login is restricted to system console (Not Scored)
 #5.6 Ensure access to the su command is restricted (Scored)
@@ -544,63 +557,63 @@ sleep 2
 chown root:root /etc/passwd
 chmod 644 /etc/passwd
 
-#6.1.3 Ensure permissions on /etc/shadow are configured (Scored)
+#6.1.3 Ensure permissions on /etc/gshadow- are configured (Scored)
+
+chown root:shadow /etc/gshadow- 
+chmod g-wx,o-rwx /etc/gshadow-
+
+#6.1.4 Ensure permissions on /etc/shadow are configured (Scored)
 
 chown root:shadow /etc/shadow
 chmod o-rwx,g-wx /etc/shadow
 
-#6.1.4 Ensure permissions on /etc/group are configured (Scored)
+#6.1.5 Ensure permissions on /etc/group are configured (Scored)
 
 chown root:root /etc/group
 chmod 644 /etc/group
 
-#6.1.5 Ensure permissions on /etc/gshadow are configured (Scored)
-
-chown root:shadow /etc/gshadow
-chmod o-rwx,g-rw /etc/gshadow
-
-#6.1.6 Ensure permissions on /etc/passwd - are configured (Scored)
+#6.1.6 Ensure permissions on /etc/passwd- are configured (Scored)
 
 chown root:root /etc/passwd-
 chmod 600 /etc/passwd-
 
-#6.1.7 Ensure permissions on /etc/shadow - are configured (Scored)
+#6.1.7 Ensure permissions on /etc/shadow- are configured (Scored)
 
 chown root:root /etc/shadow-
 chmod 600 /etc/shadow-
 
-#6.1.8 Ensure permissions on /etc/group - are configured (Scored)
+#6.1.8 Ensure permissions on /etc/group- are configured (Scored)
 
 chown root:root /etc/group-
 chmod 600 /etc/group-
 
-#6.1.9 Ensure permissions on /etc/gshadow - are configured (Scored)
+#6.1.9 Ensure permissions on /etc/gshadow are configured (Scored)
 
-chown root:root /etc/gshadow-
-chmod 600 /etc/gshadow-
+chown root:shadow /etc/gshadow
+chmod o-rwx,g-rw /etc/gshadow
 
 #6.1.10 Ensure no world writable files exist (Scored)
 #6.1.11 Ensure no unowned files or directories exist (Scored)
 #6.1.12 Ensure no ungrouped files or directories exist (Scored)
 #6.1.13 Audit SUID executables (Not Scored)
 #6.1.14 Audit SGID executables (Not Scored)
-#6.2 User an d Group Settings
+#6.2 User and Group Settings
 #6.2.1 Ensure password fields are not empty (Scored)
 #6.2.2 Ensure no legacy "+" entries exist in /etc/passwd (Scored)
-#6.2.3 Ensure no legacy "+" entries exist in /etc/shadow (Scored)
-#6.2.4 Ensure no legacy "+" entries exist in /etc/group (Scored)
-#6.2.5 Ensure root is the only UID 0 account (Scored)
-#6.2.6 Ensure root PATH Integrity (Scored)
-#6.2.7 Ensure all users' home directories exist (Scored)
+#6.2.3 Ensure all users' home directories exist (Scored)
+#6.2.4 Ensure no legacy "+" entries exist in /etc/shadow (Scored)
+#6.2.5 Ensure no legacy "+" entries exist in /etc/group (Scored)
+#6.2.6 Ensure root is the only UID 0 account (Scored)
+#6.2.7 Ensure root PATH Integrity (Scored)
 #6.2.8 Ensure users' home directories permissions are 750 or more restrictive (Scored)
 #6.2.9 Ensure users own their home directories (Scored)
 #6.2.10 Ensure users' dot files are not group or world writable (Scored)
-#6.2.11 Ensure no users have .forward files (Scored)
-#6.2.12 Ensure no users have .netrc files (Scored)
-#6.2.13 Ensure users' .netrc Files are not group or world accessible (Scored)
-#6.2.14 Ensure no users have .rhosts files (Scored)
+#6.2.11 Ensure no users have
+#6.2.12 Ensure no users have
+#6.2.13 Ensure users'
+#6.2.14 Ensure no users have
 #6.2.15 Ensure all groups in /etc/passwd exist in /etc/group (Scored)
-#6.2.16 Ensure no duplicate UIDs e xist (Scored)
+#6.2.16 Ensure no duplicate UIDs exist (Scored)
 #6.2.17 Ensure no duplicate GIDs exist (Scored)
 #6.2.18 Ensure no duplicate user names exist (Scored)
 #6.2.19 Ensure no duplicate group names exist (Scored)
