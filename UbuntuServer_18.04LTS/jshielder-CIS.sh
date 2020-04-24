@@ -356,7 +356,7 @@ update-grub
 
 #4 Logging and Auditing
 #4.1 Configure System Accounting (auditd)
-
+#4.1.1.1 Ensure auditd is installed (Scored)
 clear
 f_banner
 echo -e ""
@@ -367,36 +367,36 @@ sleep 1
 
 apt-get -y install auditd
 
-#.1.1.1 Ensure audit log storage size is configured (Not Scored)
-#.1.1.2 Ensure system is disabled when audit logs are full (Scored)
-#4.1.1.3 Ensure audit logs are not automatically deleted (Scored)
-
-cp templates/auditd-CIS.conf /etc/audit/auditd.conf
-
-#4.1.2 Ensure auditd service is enabled (Scored)
-
+#4.1.1.2 Ensure auditd service is enabled (Scored)
 systemctl enable auditd
 
-#4.1.3 Ensure auditing for processes that start prior to auditd is enabled (Scored)
-
+#4.1.1.3 Ensure auditing for processes that start prior to auditd is enabled (Scored)
 sed -i 's/GRUB_CMDLINE_LINUX="ipv6.disable=1"/GRUB_CMDLINE_LINUX="ipv6.disable=1\ audit=1"/g' /etc/default/grub
 
-#4.1.4 Ensure events that modify date and time information are collected(Scored)
-#4.1.5 Ensure events that modify user/group information are collected (Scored)
-#4.1.6 Ensure events that modify the system's network environment are collected (Scored)
-#4.1.7 Ensure events that modify the system's Mandatory Access Controls are collected (Scored)
-#.1.8 Ensure login and logout events are collected (Scored)
-#4.1.9 Ensure session initiation information is collected (Scored)
-#4.1.10 Ensure discretionary access control permission modification events are collected (Scored)
-#4.1.11 Ensure unsuccessful unauthorized file access attempts are collected (Scored)
-#4.1.12 Ensure use of privileged commands is collected (Scored)
-#4.1.13 Ensure successful file system mounts are collected (Scored) #4.1.14 Ensure file deletion events by users are collected (Scored)
-#4.1.15 Ensure changes to system administration scope (sudoers) is collected (Scored)
-#4.1.16 Ensure system administrator actions (sudolog) are collected (Scored)
-#4.1.17 Ensure kernel module loading and unloading is collected (Scored)
-#4.1.18 Ensure the audit configuration is immutable (Scored)
+#4.1.1.4 Ensure audit_backlog_limit is sufficient (Scored)
+
+#4.1.2 Configure Data Retention
+#4.1.2.1 Ensure audit log storage size is configured (Scored)
+#4.1.2.2 Ensure audit logs are not automatically deleted (Scored)
+#4.1.2.3 Ensure system is disabled when audit logs are full (Scored)
+cp templates/auditd-CIS.conf /etc/audit/auditd.conf
 
 
+#4.1.3 Ensure events that modify date and time information are collected (Scored)
+#4.1.4 Ensure events that modify user/group information are collected (Scored)
+#4.1.5 Ensure events that modify the system's network environment are collected (Scored)
+#4.1.6 Ensure events that modify the system's Mandatory Access Controls are collected (Scored)
+#4.1.7 Ensure login and logout events are collected (Scored)
+#4.1.8 Ensure session initiation information is collected (Scored)
+#4.1.9 Ensure discretionary access control permission modification events are collected (Scored)
+#4.1.10 Ensure unsuccessful unauthorized file access attempts are collected (Scored)
+#4.1.11 Ensure use of privileged commands is collected (Scored)
+#4.1.12 Ensure successful file system mounts are collected (Scored)
+#4.1.13 Ensure file deletion events by users are collected (Scored)
+#4.1.14 Ensure changes to system administration scope (sudoers) is collected (Scored)
+#4.1.15 Ensure system administrator actions (sudolog) are collected (Scored)
+#4.1.16 Ensure kernel module loading and unloading is collected (Scored)
+#4.1.17 Ensure the audit configuration is immutable (Scored)
 cp templates/audit-CIS.rules /etc/audit/audit.rules
 
 find / -xdev \( -perm -4000 -o -perm -2000 \) -type f | awk '{print \
@@ -410,17 +410,13 @@ echo "-e 2" >>/etc/audit/audit.rules
 cp /etc/audit/audit.rules /etc/audit/rules.d/audit.rules
 
 #4.2 Configure Logging
-#4.2.1.1 Ensure rsyslog Service is enabled (Scored)
-#4.2.1.2 Ensure logging is configured (Not Scored)
-#4.2.1.3 Ensure rsyslog default file permissions configured (Scored)
-#4.2.1.4 Ensure rsyslog is configured to send logs to a remote log host (Scored)
-#4.2.1.5 Ensure remote rsyslog messages are only accepted on designated log hosts. (Not Scored)
-#4.2.2.1 Ensure syslog-ng service is enabled (Scored)
-#4.2.2.2 Ensure logging is configured (Not Scored)
-#4.2.2.3 Ensure syslog-ng default file permissions configured (Scored)
-#4.2.2.4 Ensure syslog-ng is configured to send logs to a remote log host (Scored)
-#4.2.2.5 Ensure remote syslog-ng messages are only accepted on designated log hosts (Not Scored)
-#4.2.3 Ensure rsyslog or syslog-ng is installed (Scored)
+#4.2.1 Configure rsyslog
+#4.2.1.1 Ensure rsyslog is installed (Scored)
+#4.2.1.2 Ensure rsyslog Service is enabled (Scored)
+#4.2.1.3 Ensure logging is configured (Not Scored)
+#4.2.1.4 Ensure rsyslog default file permissions configured (Scored)
+#4.2.1.5 Ensure rsyslog is configured to send logs to a remote log host (Scored) 
+#4.2.1.6 Ensure remote rsyslog messages are only accepted on designated log hosts (Not Scored)
 
 #4.2.4 Ensure permissions on all logfiles are configured (Scored)
 
