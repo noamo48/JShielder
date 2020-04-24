@@ -190,23 +190,15 @@ apt-get -y upgrade
 
 #2 Services
 #2.1 inetd Services
-#2.1.1 Ensure chargen services are not enabled (Scored)
-#.1.2 Ensure daytime services are not enabled (Scored)
-#2.1.3 Ensure discard services are not enabled (Scored)
-#2.1.4 Ensure echo services are not enabled (Scored)
-#2.1.5 Ensure time services are not enabled (Scored)
-#2.1.6 Ensure rsh server is not enabled (Scored)
-#2.1.7 Ensure talk server is not enabled (Scored)
-#2.1.8 Ensure telnet server is not enabled (Scored)
-#2.1.9 Ensure tftp server is not enabled (Scored)
-#2.1.10 Ensure xinetd is not enabled (Scored)
+#2.1.1 Ensure xinetd is not installed (Scored)
+#2.1.2 Ensure openbsd-inetd is not installed (Scored)
 
 ##############################################################
 #2.2 Special Purpose Services
 #2.2.1.1 Ensure time synchronization is in use (Not Scored)
-#2.2.1.2 Ensure ntp is configured (Scored)
-#2.2.1.3 Ensure chrony is configured (Scored)
-
+#2.2.1.2 Ensure systemd-timesyncd is configured (Not Scored)
+#2.2.1.2 Ensure chrony is configured (Scored)
+#2.2.1.3 Ensure ntp is configured (Scored)
 
 #2.2.2 Ensure X Window System is not installed (Scored)
 #2.2.3 Ensure Avahi Server is not enabled (Scored)
@@ -217,7 +209,7 @@ apt-get -y upgrade
 #2.2.8 Ensure DNS Server is not enabled (Scored)
 #2.2.9 Ensure FTP Server is not enabled (Scored)
 #2.2.10 Ensure HTTP server is not enabled (Scored)
-#2.2.11 Ensure IMAP and POP3 server is not enabled (Scored)
+#2.2.11 Ensure email services are not enabled (Scored)
 #2.2.12 Ensure Samba is not enabled (Scored)
 #2.2.13 Ensure HTTP Proxy Server is not enabled (Scored)
 #2.2.14 Ensure SNMP Server is not enabled (Scored)
@@ -237,68 +229,57 @@ apt-get -y remove telnet
 #######################################################################
 
 #3 Network Configuration
-#.1 Network Parameters (Host Only)
-#.1.1 Ensure IP forwarding is disabled (Scored)
-#.1.2 Ensure packet redirect sending is disabled (Scored)
-#.2 Network Parameters (Host and Router)
-#.2.1 Ensure source routed packets are not accepted (Scored)
-#.2.2 Ensure ICMP redirects are not accepted (Scored)
-#.2.3 Ensure secure ICMP redirects are not accepted (Scored)
+#3.1 Network Parameters (Host Only)
+#3.1.1 Ensure packet redirect sending is disabled (Scored)
+#3.1.2 Ensure IP forwarding is disabled (Scored)
+#3.2 Network Parameters (Host and Router)
+#3.2.1 Ensure source routed packets are not accepted (Scored)
+#3.2.2 Ensure ICMP redirects are not accepted (Scored)
+#3.2.3 Ensure secure ICMP redirects are not accepted (Scored)
 #3.2.4 Ensure suspicious packets are logged (Scored)
 #3.2.5 Ensure broadcast ICMP requests are ignored (Scored)
 #3.2.6 Ensure bogus ICMP responses are ignored (Scored)
 #3.2.7 Ensure Reverse Path Filtering is enabled (Scored)
 #3.2.8 Ensure TCP SYN Cookies is enabled (Scored)
-#3.3 IPv6
-#3.3.1 Ensure IPv6 router advertisements are not accepted (Not Scored)
-#3.3.2 Ensure IPv6 redirects are not accepted (Not Scored)
+#3.2.9 Ensure IPv6 router advertisements are not accepted (Scored)
 
-## VALUES SET WITH SYSCTL TEMPLATE COPIED ON PREVIOUS STEP
-
-########################################################################
-
-#3.3.3 Ensure IPv6 is disabled (Not Scored)
-
-sed -i 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="ipv6.disable=1"/g' /etc/default/grub
-update-grub
-
-#3.4 TCP Wrappers
-#.4.1 Ensure TCP Wrappers is installed (Scored)
+#3.3 TCP Wrappers
+#3.3.1 Ensure TCP Wrappers is installed (Scored)
    # Installed by default
 
 
-#.4.2 Ensure /etc/hosts.allow is configured (Scored)
+#3.3.2 Ensure /etc/hosts.allow is configured (Not Scored)
 
-clear
-f_banner
+#clear
+#f_banner
 
-echo -e ""
-echo -e "Setting hosts.allow and hosts.deny"
-spinner
-sleep 2
+#echo -e ""
+#echo -e "Setting hosts.allow and hosts.deny"
+#spinner
+#sleep 2
 
-echo "ALL: 10.0.0.0/255.0.0.0" >> /etc/hosts.allow
-echo "ALL: 192.168.0.0/255.255.0.0" >> /etc/hosts.allow
-echo "ALL: 172.16.0.0/255.240.0.0" >> /etc/hosts.allow
-echo "ALL: 170.55.45.42/255.255.255.255" >> /etc/hosts.allow
-echo "ALL: 24.51.206.190/255.255.255.255" >> /etc/hosts.allow
+#echo "ALL: 10.0.0.0/255.0.0.0" >> /etc/hosts.allow
+#echo "ALL: 192.168.0.0/255.255.0.0" >> /etc/hosts.allow
+#echo "ALL: 172.16.0.0/255.240.0.0" >> /etc/hosts.allow
+#echo "ALL: 170.55.45.42/255.255.255.255" >> /etc/hosts.allow
+#echo "ALL: 24.51.206.190/255.255.255.255" >> /etc/hosts.allow
 
-#3.4.3 Ensure /etc/hosts.deny is configured (Scored)
+#3.3.3 Ensure /etc/hosts.deny is configured (Not Scored)
 
 #echo "ALL: ALL" >> /etc/hosts.deny
 
-#3.4.4 Ensure permissions on /etc/hosts.allow are configured (Scored)
+#3.3.4 Ensure permissions on /etc/hosts.allow are configured (Scored)
 
 chown root:root /etc/hosts.allow
 chmod 644 /etc/hosts.allow
 
-#3.4.5 Ensure permissions on /etc/hosts.deny are 644 (Scored)
+#3.3.5 Ensure permissions on /etc/hosts.deny are 644 (Scored)
 
 chown root:root /etc/hosts.deny
 chmod 644 /etc/hosts.deny
 
-#3.5 Uncommon Network Protocols
-#3.5.1 Ensure DCCP is disabled (Not Scored)
+#3.4 Uncommon Network Protocols
+#3.4.1 Ensure DCCP is disabled (Not Scored)
 
 clear
 f_banner
@@ -310,23 +291,49 @@ sleep 2
 
 echo "install dccp /bin/true" >> /etc/modprobe.d/CIS.conf
 
-#3.5.2 Ensure SCTP is disabled (Not Scored)
+#3.4.2 Ensure SCTP is disabled (Not Scored)
 
 echo "install sctp /bin/true" >> /etc/modprobe.d/CIS.conf
 
-#3.5.3 Ensure RDS is disabled (Not Scored)
+#3.4.3 Ensure RDS is disabled (Not Scored)
 
 echo "install rds /bin/true" >> /etc/modprobe.d/CIS.conf
 
-#3.5.4 Ensure TIPC is disabled (Not Scored)
+#3.4.4 Ensure TIPC is disabled (Not Scored)
 
 echo "install tipc /bin/true" >> /etc/modprobe.d/CIS.conf
 
-#3.6 Firewall Configuration
-#3.6.1 Ensure iptables is installed (Scored)
-#3.6.2 Ensure default deny firewall policy (Scored)
-#3.6.3 Ensure loopback traffic is configured (Scored)
-#3.6.4 Ensure outbound and established connections are configured (Not Scored)
+#3.5 Firewall Configuration
+#3.5.1 Ensure Firewall software is installed
+#3.5.1.1 Ensure a Firewall package is installed (Scored)
+#3.5.2 Configure UncomplicatedFirewall
+#3.5.2.1 Ensure ufw service is enabled (Scored)
+#3.5.2.2 Ensure default deny firewall policy (Scored)
+#3.5.2.3 Ensure loopback traffic is configured (Scored)
+#3.5.2.4 Ensure outbound connections are configured (Not Scored)
+#3.5.2.5 Ensure firewall rules exist for all open ports (Not Scored)
+
+#3.5.3 Configure nftables
+#3.5.3.1 Ensure iptables are flushed (Not Scored)
+#3.5.3.2 Ensure a table exists (Scored)
+#3.5.3.3 Ensure base chains exist (Scored)
+ 
+#3.5.3.4 Ensure loopback traffic is configured (Scored)
+#3.5.3.5 Ensure outbound and established connections are configured (Not Scored)
+#3.5.3.6 Ensure default deny firewall policy (Scored)
+#3.5.3.7 Ensure nftables service is enabled (Scored)
+#3.5.3.8 Ensure nftables rules are permanent (Scored)
+
+
+#3.5.4 Configure iptables
+#3.5.4.1.1 Ensure default deny firewall policy (Scored)
+#3.5.4.1.2 Ensure loopback traffic is configured (Scored)
+#3.5.4.1.3 Ensure outbound and established connections are configured (Not Scored)
+#3.5.4.1.4 Ensure firewall rules exist for all open ports (Scored)
+#3.5.4.2.1 Ensure IPv6 default deny firewall policy (Scored)
+#3.5.4.2.2 Ensure IPv6 loopback traffic is configured (Scored)
+#3.5.4.2.3 Ensure IPv6 outbound and established connections are configured (Not Scored)
+#3.5.4.2.4 Ensure IPv6 firewall rules exist for all open ports (Not Scored)
 
 clear
 f_banner
@@ -341,11 +348,14 @@ cp templates/iptables-CIS.sh /etc/init.d/
 chmod +x /etc/init.d/iptables-CIS.sh
 ln -s /etc/init.d/iptables-CIS.sh /etc/rc2.d/S99iptables-CIS.sh
 
-#3.6.5 Ensure firewall rules exist for all open ports (Scored)
-#3.7 Ensure wireless interfaces are disabled (Not Scored)
+#3.6 Ensure wireless interfaces are disabled (Scored)
+
+#3.7 Disable IPv6 (Not Scored)
+sed -i 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="ipv6.disable=1"/g' /etc/default/grub
+update-grub
 
 #4 Logging and Auditing
-#.1 Configure System Accounting (auditd)
+#4.1 Configure System Accounting (auditd)
 
 clear
 f_banner
