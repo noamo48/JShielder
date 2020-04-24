@@ -418,7 +418,12 @@ cp /etc/audit/audit.rules /etc/audit/rules.d/audit.rules
 #4.2.1.5 Ensure rsyslog is configured to send logs to a remote log host (Scored) 
 #4.2.1.6 Ensure remote rsyslog messages are only accepted on designated log hosts (Not Scored)
 
-#4.2.4 Ensure permissions on all logfiles are configured (Scored)
+#4.2.2 Configure journald 
+#4.2.2.1 Ensure journald is configured to send logs to rsyslog (Scored)
+#4.2.2.2 Ensure journald is configured to compress large log files (Scored)
+#4.2.2.3 Ensure journald is configured to write logfiles to persistent disk (Scored)
+
+#4.2.3 Ensure permissions on all logfiles are configured (Scored)
 
 chmod -R g-wx,o-rwx /var/log/*
 
@@ -426,8 +431,8 @@ chmod -R g-wx,o-rwx /var/log/*
 
 
 #5 Access, Authentication and Authorization
-#.1 Configure cron
-#.1.1 Ensure cron daemon is enabled (Scored)
+#5.1 Configure cron
+#5.1.1 Ensure cron daemon is enabled (Scored)
 #5.1.2 Ensure permissions on /etc/crontab are configured (Scored)
 #5.1.3 Ensure permissions on /etc/cron.hourly are configured (Scored)
 #5.1.4 Ensure permissions on /etc/cron.daily are configured (Scored)
