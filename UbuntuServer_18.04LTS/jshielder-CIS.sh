@@ -288,7 +288,6 @@ echo "ALL: 10.0.0.0/255.0.0.0" >> /etc/hosts.allow
 echo "ALL: 192.168.0.0/255.255.0.0" >> /etc/hosts.allow
 echo "ALL: 172.16.0.0/255.240.0.0" >> /etc/hosts.allow
 echo "ALL: 170.55.45.42/255.255.255.255" >> /etc/hosts.allow
-echo "ALL: 24.51.206.190/255.255.255.255" >> /etc/hosts.allow
 
 #3.3.3 Ensure /etc/hosts.deny is configured (Not Scored)
 
