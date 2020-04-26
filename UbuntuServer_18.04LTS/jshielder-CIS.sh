@@ -181,9 +181,15 @@ sysctl -e -p
 
 #1.7 Mandatory Access Control
 #1.7.1.1 Ensure AppArmor is installed (Scored)
+# Installed by default 
 #1.7.1.2 Ensure AppArmor is enabled in the bootloader configuration (Scored).
+
+sed -i 's/audit=1\"/audit=1 apparmor=1 security=apparmor\"/' grub
+
 #1.7.1.3 Ensure all AppArmor Profiles are in enforce or complain mode (Scored)
 #1.7.1.4 Ensure all AppArmor Profiles are enforcing (Scored)
+
+aa-enforce /etc/apparmor.d/* 
 
 
 #1.8 Warning Banners
