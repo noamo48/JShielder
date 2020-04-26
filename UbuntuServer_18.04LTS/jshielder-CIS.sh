@@ -276,19 +276,19 @@ apt-get -y remove telnet
 
 #3.3.2 Ensure /etc/hosts.allow is configured (Not Scored)
 
-#clear
-#f_banner
+clear
+f_banner
 
-#echo -e ""
-#echo -e "Setting hosts.allow and hosts.deny"
-#spinner
-#sleep 2
+echo -e ""
+echo -e "Setting hosts.allow and hosts.deny"
+spinner
+sleep 2
 
-#echo "ALL: 10.0.0.0/255.0.0.0" >> /etc/hosts.allow
-#echo "ALL: 192.168.0.0/255.255.0.0" >> /etc/hosts.allow
-#echo "ALL: 172.16.0.0/255.240.0.0" >> /etc/hosts.allow
-#echo "ALL: 170.55.45.42/255.255.255.255" >> /etc/hosts.allow
-#echo "ALL: 24.51.206.190/255.255.255.255" >> /etc/hosts.allow
+echo "ALL: 10.0.0.0/255.0.0.0" >> /etc/hosts.allow
+echo "ALL: 192.168.0.0/255.255.0.0" >> /etc/hosts.allow
+echo "ALL: 172.16.0.0/255.240.0.0" >> /etc/hosts.allow
+echo "ALL: 170.55.45.42/255.255.255.255" >> /etc/hosts.allow
+echo "ALL: 24.51.206.190/255.255.255.255" >> /etc/hosts.allow
 
 #3.3.3 Ensure /etc/hosts.deny is configured (Not Scored)
 
@@ -301,8 +301,8 @@ chmod 644 /etc/hosts.allow
 
 #3.3.5 Ensure permissions on /etc/hosts.deny are 644 (Scored)
 
-chown root:root /etc/hosts.deny
-chmod 644 /etc/hosts.deny
+#chown root:root /etc/hosts.deny
+#chmod 644 /etc/hosts.deny
 
 #3.4 Uncommon Network Protocols
 #3.4.1 Ensure DCCP is disabled (Not Scored)
@@ -371,7 +371,7 @@ sleep 1
 
 sh templates/iptables-CIS.sh
 cp templates/iptables-CIS.sh /etc/init.d/
-chmod +x /etc/init.d/iptables-CIS.sh
+chmod +x /etc/init.d/s-CIS.sh
 ln -s /etc/init.d/iptables-CIS.sh /etc/rc2.d/S99iptables-CIS.sh
 
 #3.6 Ensure wireless interfaces are disabled (Scored)
