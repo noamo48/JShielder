@@ -95,6 +95,9 @@ echo "install udf /bin/true" >> /etc/modprobe.d/CIS.conf
 echo "install vfat /bin/true" >> /etc/modprobe.d/CIS.conf
 
 #1.1.2 Ensure /tmp is configured (Scored)
+echo 'tmpfs /tmp tmpfs     defaults,rw,nosuid,nodev,noexec,relatime  0 0' >> /etc/fstab
+chmod 1777 /tmp
+
 #1.1.3 Ensure nodev option set on /tmp partition (Scored)
 #1.1.4 Ensure nosuid option set on /tmp partition (Scored)
 #1.1.5 Ensure noexec option set on /tmp partition (Scored)
