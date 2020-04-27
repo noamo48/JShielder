@@ -95,29 +95,34 @@ echo "install udf /bin/true" >> /etc/modprobe.d/CIS.conf
 echo "install vfat /bin/true" >> /etc/modprobe.d/CIS.conf
 
 #1.1.2 Ensure /tmp is configured (Scored)
-echo 'tmpfs /tmp tmpfs     defaults,rw,nosuid,nodev,noexec,relatime  0 0' >> /etc/fstab
-chmod 1777 /tmp
-
 #1.1.3 Ensure nodev option set on /tmp partition (Scored)
 #1.1.4 Ensure nosuid option set on /tmp partition (Scored)
 #1.1.5 Ensure noexec option set on /tmp partition (Scored)
+echo 'tmpfs /tmp tmpfs     defaults,rw,nosuid,nodev,noexec,relatime  0 0' >> /etc/fstab
+chmod 1777 /tmp
+
 #1.1.6 Ensure separate partition exists for /var (Scored)
 #1.1.7 Ensure separate partition exists for /var/tmp (Scored)
 #1.1.8 Ensure nodev option set on /var/tmp partition (Scored)
 #1.1.9 Ensure nosuid option set on /var/tmp partition (Scored)
 #1.1.10 Ensure noexec option set on /var/tmp partition (Scored)
-
 #1.1.11 Ensure separate partition exists for /var/log (Scored)
 #1.1.12 Ensure separate partition exists for /var/log/audit (Scored)
 #1.1.13 Ensure separate partition exists for /home (Scored)
 #1.1.14 Ensure nodev option set on /home partition (Scored)
+## SKIPPING 1.1.6 through 1.1.14
+## Too many AWS services write to these directories and depend on them
+## It's possible to achieve this but may require adding an EBS vol
+
 #1.1.15 Ensure nodev option set on /dev/shm partition (Scored)
 #1.1.16 Ensure nosuid option set on /dev/shm partition (Scored)
 #1.1.17 Ensure noexec option set on /dev/shm partition (Scored)
+# Done by default
 
 #1.1.18 Ensure nodev option set on removable media partitions (Not Scored)
 #1.1.19 Ensure nosuid option set on removable media partitions (Not Scored)
 #1.1.20 Ensure noexec option set on removable media partitions (Not Scored)
+# No removable media in cloud
 
 #1.1.21 Ensure sticky bit is set on all world-writable directories (Scored)
 
@@ -132,7 +137,10 @@ spinner
 df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type d -perm -0002 2>/dev/null | xargs chmod a+t
 
 #1.1.22 Disable Automounting (Scored)
+# autofs is not installed by default
+
 #1.1.23 Disable USB Storage (Scored)
+# No usb drives in cloud
 
 #1.2 Configure Software Updates
 #1.2.1 Ensure package manager repositories are configured (Not Scored)
