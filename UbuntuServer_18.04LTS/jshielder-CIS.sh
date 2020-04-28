@@ -150,10 +150,12 @@ df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -typ
 #1.3 Configure sudo
 #1.3.1 Ensure sudo is installed (Scored)
 #1.3.2 Ensure sudo commands use pty (Scored)
+sed -i "/Defaults\tenv_reset/a Defaults\tuse_pty" /etc/sudoers
+
 #1.3.3 Ensure sudo log file exists (Scored)
+sed -i "/Defaults\tenv_reset/a Defaults\tlogfile=\"/var/log/sudo.log\"" sudoers
 
 #1.4 Filesystem Integrity Checking
-
 #1.4.1 Ensure AIDE is installed (Scored)
 
 clear
