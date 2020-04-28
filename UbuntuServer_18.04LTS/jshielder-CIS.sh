@@ -168,6 +168,8 @@ DEBIAN_FRONTEND=noninteractive apt-get -yq install aide
 aideinit
 
 #1.4.2 Ensure filesystem integrity is regularly checked (Scored)
+echo '0 5 * * * /usr/bin/aide.wrapper --config /etc/aide/aide.conf --check' > cron && crontab cron && rm cron
+
 #1.4.3 Ensure authentication required for single user mode (Scored)
 
 # 1.5 - N/A for cloud environments
