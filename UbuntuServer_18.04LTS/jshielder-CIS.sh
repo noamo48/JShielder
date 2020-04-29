@@ -189,11 +189,13 @@ echo "root:$UUID" | chpasswd
 
 #1.6 Additional Process Hardening
 #1.6.1 Ensure XD/NX support is enabled (Scored)
+# Done by default
+
 #1.6.2 Ensure address space layout randomization (ASLR) is enabled (Scored)
-    #already set on sysctl.conf template file
+# Already set on sysctl.conf template file
     
 #1.6.3 Ensure prelink is disabled (Scored)
-    # not installed by default on Clean Ubuntu install, will add condition later on
+# Not installed by default on Clean Ubuntu install
 
 #1.6.4 Ensure core dumps are restricted (Scored)
 
@@ -204,6 +206,7 @@ sysctl -e -p
 #1.7 Mandatory Access Control
 #1.7.1.1 Ensure AppArmor is installed (Scored)
 # Installed by default 
+
 #1.7.1.2 Ensure AppArmor is enabled in the bootloader configuration (Scored).
 
 sed -i 's/audit=1\"/audit=1 apparmor=1 security=apparmor\"/' grub
@@ -212,7 +215,6 @@ sed -i 's/audit=1\"/audit=1 apparmor=1 security=apparmor\"/' grub
 #1.7.1.4 Ensure all AppArmor Profiles are enforcing (Scored)
 
 aa-enforce /etc/apparmor.d/* 
-
 
 #1.8 Warning Banners
 #1.8.1.1 Ensure message of the day is configured properly (Scored)
@@ -281,7 +283,6 @@ apt-get -y remove telnet
 #2.3.5 Ensure LDAP client is not installed (Scored)
 
 #######################################################################
-
 #3 Network Configuration
 #3.1 Network Parameters (Host Only)
 #3.1.1 Ensure packet redirect sending is disabled (Scored)
@@ -296,10 +297,11 @@ apt-get -y remove telnet
 #3.2.7 Ensure Reverse Path Filtering is enabled (Scored)
 #3.2.8 Ensure TCP SYN Cookies is enabled (Scored)
 #3.2.9 Ensure IPv6 router advertisements are not accepted (Scored)
+# All of these are done by default
 
 #3.3 TCP Wrappers
 #3.3.1 Ensure TCP Wrappers is installed (Scored)
-   # Installed by default
+# Installed by default
 
 
 #3.3.2 Ensure /etc/hosts.allow is configured (Not Scored)
@@ -327,6 +329,8 @@ chown root:root /etc/hosts.allow
 chmod 644 /etc/hosts.allow
 
 #3.3.5 Ensure permissions on /etc/hosts.deny are 644 (Scored)
+# Disabling this step for now as I haven't figured out which 
+# connections are necessary to not break connectivity  
 
 #chown root:root /etc/hosts.deny
 #chmod 644 /etc/hosts.deny
@@ -360,22 +364,25 @@ echo "install tipc /bin/true" >> /etc/modprobe.d/CIS.conf
 #3.5.1 Ensure Firewall software is installed
 #3.5.1.1 Ensure a Firewall package is installed (Scored)
 #3.5.2 Configure UncomplicatedFirewall
+# All done by default
+
 #3.5.2.1 Ensure ufw service is enabled (Scored)
 #3.5.2.2 Ensure default deny firewall policy (Scored)
 #3.5.2.3 Ensure loopback traffic is configured (Scored)
 #3.5.2.4 Ensure outbound connections are configured (Not Scored)
 #3.5.2.5 Ensure firewall rules exist for all open ports (Not Scored)
+# Breaks SSH connectivity - leaving ufw disabled for now
 
 #3.5.3 Configure nftables
 #3.5.3.1 Ensure iptables are flushed (Not Scored)
 #3.5.3.2 Ensure a table exists (Scored)
 #3.5.3.3 Ensure base chains exist (Scored)
- 
 #3.5.3.4 Ensure loopback traffic is configured (Scored)
 #3.5.3.5 Ensure outbound and established connections are configured (Not Scored)
 #3.5.3.6 Ensure default deny firewall policy (Scored)
 #3.5.3.7 Ensure nftables service is enabled (Scored)
 #3.5.3.8 Ensure nftables rules are permanent (Scored)
+# Using iptables instead, skipping nftables section
 
 
 #3.5.4 Configure iptables
@@ -427,6 +434,7 @@ systemctl enable auditd
 sed -i 's/GRUB_CMDLINE_LINUX="ipv6.disable=1"/GRUB_CMDLINE_LINUX="ipv6.disable=1\ audit=1"/g' /etc/default/grub
 
 #4.1.1.4 Ensure audit_backlog_limit is sufficient (Scored)
+# Done by default
 
 #4.1.2 Configure Data Retention
 #4.1.2.1 Ensure audit log storage size is configured (Scored)
@@ -671,6 +679,7 @@ chmod o-rwx,g-rw /etc/gshadow
 #6.2.18 Ensure no duplicate user names exist (Scored)
 #6.2.19 Ensure no duplicate group names exist (Scored)
 #6.2.20 Ensure shadow group is empty (Scored)
+# Done by default
 
 clear
 f_banner
