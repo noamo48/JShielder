@@ -172,13 +172,20 @@ echo '0 5 * * * /usr/bin/aide.wrapper --config /etc/aide/aide.conf --check' > cr
 
 #1.4.3 Ensure authentication required for single user mode (Scored)
 
-# 1.5 - N/A for cloud environments
 #1.5 Secure Boot Settings
 #1.5.1 Ensure permissions on bootloader config are configured (Scored)
-#1.5.2 Ensure bootloader password is set (Scored)
-#1.5.3 Ensure authentication required for single user mode (Scored)
-#1.5.4 Ensure interactive boot is not enabled (Not Scored)
+# Done by default
 
+#1.5.2 Ensure bootloader password is set (Scored)
+# Not possible for cloud environments
+
+#1.5.3 Ensure authentication required for single user mode (Scored)
+# Don't care about root password on cloud env anyways
+UUID=`(uuidgen)`
+echo "root:$UUID" | chpasswd
+
+#1.5.4 Ensure interactive boot is not enabled (Not Scored)
+# GRUB_TIMEOUT set to 0 by default
 
 #1.6 Additional Process Hardening
 #1.6.1 Ensure XD/NX support is enabled (Scored)
